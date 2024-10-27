@@ -23,15 +23,16 @@ class productRepository extends baseRepository
         return ['message'=>$message,"Product"=>$data];
 
     }
-    public function show(Product $product)
+    public function showWithLang(Product $product)
     {
         $data = Product::with('photos')->first();
-        if ($data->isEmpty()){
-            $message="There are no product at the moment";
-        }else
-        {
+//        dd($data);
+//        if (!$data){
+//            $message="There are no product at the moment";
+//        }else
+//        {
             $message="Product showed successfully";
-        }
+//        }
         return ['message'=>$message,"Product"=>$data];
 
     }

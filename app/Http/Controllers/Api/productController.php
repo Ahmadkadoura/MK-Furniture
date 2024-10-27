@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Repositories\productRepository;
 use App\Http\Requests\Product\storeProductRequest;
 use App\Http\Requests\Product\updateProductRequest;
+use App\Http\Resources\ProductLangResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Traits\FileUpload;
@@ -27,9 +28,14 @@ class productController extends Controller
         $data = $this->productRepository->index();
         return $this->showAll($data['Product'], ProductResource::class,__($data['message']));
     }
-    public function show(Product $product): JsonResponse
+    public function show(Product $product)
     {
-        return $this->showOne($product,ProductResource::class);
+        return $this->showOne($product, ProductResource::class);
+    }
+    public function showWithLang(Product $product)
+    {
+        $data = $this->productRepository->showWithLang($product);
+        return new ProductLangResource($data['Product']);
     }
 
     public function store(storeProductRequest $request): JsonResponse
