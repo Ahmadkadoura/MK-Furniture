@@ -23,4 +23,11 @@ class photoContoller extends Controller
         $data = $this->photoRepository->indexPhotoByColor($product_id,$color);
         return $this->showOneCollection($data['Photo'], PhotoResource::class,__($data['message']));
     }
+
+    public function destroy(Photo $photo)
+    {
+        $data = $this->photoRepository->destroy($photo);
+        return [__($data['message']),$data['code']];
+
+    }
 }

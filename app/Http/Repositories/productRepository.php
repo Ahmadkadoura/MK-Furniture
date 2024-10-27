@@ -25,14 +25,14 @@ class productRepository extends baseRepository
     }
     public function showWithLang(Product $product)
     {
-        $data = Product::with('photos')->first();
-//        dd($data);
-//        if (!$data){
-//            $message="There are no product at the moment";
-//        }else
-//        {
+        $data = $product::with('photos')->find($product->id);
+
+        if (!$data){
+            $message="There are no product at the moment";
+        }else
+        {
             $message="Product showed successfully";
-//        }
+        }
         return ['message'=>$message,"Product"=>$data];
 
     }
@@ -53,4 +53,27 @@ class productRepository extends baseRepository
         $message='Transaction created successfully';
         return ['message'=>$message,"Product"=>$product];
     }
+    public function update(Product $product, $productData): array
+    {
+        // تحديث بيانات المنتج الأساسية
+        $product->update($productData);
+
+        // إذا كانت هناك صور جديدة
+        if (isset($productData['photos']) && is_array($productData['photos'])) {
+            // حذف الصور الحالية للمنتج
+            $product->photos()->delete();
+
+            // إضافة الصور الجديدة
+            foreach ($productData['photos'] as $itemData) {
+                Photo::create([
+                    'product_id' => $product->id,
+                    'image' => $itemData['image'],
+                    'color' => $itemData['color'],
+                ]);
+            }
+        }
+        $message = 'Product updated successfully';
+        return ['message' => $message, "Product" => $product];
+    }
+
 }

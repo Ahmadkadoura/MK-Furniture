@@ -33,7 +33,6 @@ class storeProductRequest extends FormRequest
                 'newPrice' => 'required|integer',
                 'oldPrice' => 'nullable|integer',
                 'photos'=> 'required|array',
-//                'photos.*.product_id'=> 'required|exists:products,id',
                 'photos.*.image' => 'required|image',
                 'photos.*.color' => 'required|string|max:50',
 

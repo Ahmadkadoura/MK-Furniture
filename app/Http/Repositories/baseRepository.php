@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use mysql_xdevapi\Collection;
 
 class baseRepository
@@ -37,33 +38,26 @@ class baseRepository
         return ['message'=>$message,"$modelName"=>$data];
 
     }
-    public function update($request, $model): array
-    {
-
-        $validatedData=$request;
-        $modelName = class_basename($this->model);
-
-
-
-                // Update the model with the request data
-                $model->update($validatedData);
-
-
-            // Retrieve the updated data
-            $data = $this->model::find($model->id);
-
-            $message = "$modelName updated successfully";
-            $code = 200;
-
-        return ["$modelName" => $data, 'message' => $message, 'code' => $code];
-    }
+//    public function update(Model $model, $request): array
+//    {
+//        $validatedData=$request;
+//        $modelName = class_basename($this->model);
+//                // Update the model with the request data
+//                $model->update($validatedData);
+//            // Retrieve the updated data
+//            $data = $this->model::find($model->id);
+//            $message = "$modelName updated successfully";
+//            $code = 200;
+//
+//        return ["$modelName" => $data, 'message' => $message, 'code' => $code];
+//    }
 
     public function destroy($model): array
     {
         $modelName = class_basename($this->model);
 
         // Find the model by ID (use soft delete)
-        $data = $this->model::withTrashed()->find($model->id);
+        $data = $this->model::find($model->id);
 
         if (!is_null($data)) {
             // Soft delete the model

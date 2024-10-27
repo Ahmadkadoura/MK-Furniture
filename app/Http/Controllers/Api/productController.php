@@ -41,7 +41,6 @@ class productController extends Controller
     public function store(storeProductRequest $request): JsonResponse
     {
         $productData = $request->validated();
-
         // Check for photos and upload each one
         if ($request->has('photos')) {
             foreach ($request->file('photos') as $key => $photo) {
@@ -57,22 +56,24 @@ class productController extends Controller
         return $this->showOne($product['Product'], ProductResource::class, $product['message']);
     }
 
-    public function update(updateProductRequest $request, Product $product): JsonResponse
+    public function update(UpdateProductRequest $request, Product $product): JsonResponse
     {
-        $newData=$request->validated();
+        $productData = $request->validated();
+
         if ($request->has('photos')) {
             foreach ($request->file('photos') as $key => $photo) {
                 $file = $photo['image'];
-                $product=$request->name['en'];
-                // Extract the image file from the array
-                $fileName = 'photos/' .$product. $file->hashName();
-                $newData['photos'][$key]['image'] = $this->createFile($file, Product::getDisk(), filename: $fileName);
+                $modelNumber = $product->modelNumber;
+                $fileName = 'photos/' . $modelNumber.'_'. $file->hashName();
+                $productData['photos'][$key]['image'] = $this->createFile($file, Product::getDisk(), filename: $fileName);
             }
         }
-        $data = $this->productRepository->update($newData, $product);
-        return $this->showOne($data['Product'],ProductResource::class,__($data['message']));
 
+        $updatedProduct = $this->productRepository->update($product ,$productData);
+
+        return $this->showOne($updatedProduct['Product'], ProductResource::class, $updatedProduct['message']);
     }
+
     public function destroy(Product $product)
     {
         $data = $this->productRepository->destroy($product);

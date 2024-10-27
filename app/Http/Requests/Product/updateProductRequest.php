@@ -32,6 +32,10 @@ class updateProductRequest extends FormRequest
                 'modelNumber' => 'string|max:255',
                 'newPrice' => 'integer',
                 'oldPrice' => 'integer',
+                'photos'=> 'array',
+                'photos.*.image' => 'image',
+                'photos.*.color' => 'string|max:50',
+
         ];
     }
 }

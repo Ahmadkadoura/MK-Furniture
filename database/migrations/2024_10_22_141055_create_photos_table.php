@@ -14,12 +14,11 @@ return new class extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Product::class);
+            $table->foreignIdFor(Product::class)->constrained()->onDelete('cascade');
             $table->string('image');
             $table->string('color');
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

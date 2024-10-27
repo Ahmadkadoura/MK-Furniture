@@ -39,4 +39,16 @@ class Product extends Model
             return $this->$fieldName ? self::getDisk()->url($this->$fieldName) : null;
         }
     }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($product) {
+            $product->photos()->delete(); // لحذف الصور عند حذف المنتج
+        });
+        static::restoring(function ($product) {
+            $product->photos()->onlyTrashed()->restore();
+        });
+    }
+
 }
