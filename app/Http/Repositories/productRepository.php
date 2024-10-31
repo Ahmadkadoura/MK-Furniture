@@ -55,15 +55,11 @@ class productRepository extends baseRepository
     }
     public function update(Product $product, $productData): array
     {
-        // تحديث بيانات المنتج الأساسية
         $product->update($productData);
 
-        // إذا كانت هناك صور جديدة
         if (isset($productData['photos']) && is_array($productData['photos'])) {
-            // حذف الصور الحالية للمنتج
             $product->photos()->delete();
 
-            // إضافة الصور الجديدة
             foreach ($productData['photos'] as $itemData) {
                 Photo::create([
                     'product_id' => $product->id,

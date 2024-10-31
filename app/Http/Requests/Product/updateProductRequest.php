@@ -29,7 +29,7 @@ class updateProductRequest extends FormRequest
                 'description.gr' => 'string',
                 'type.en' => 'string',
                 'type.gr' => 'string',
-                'modelNumber' => 'string|max:255',
+//                'modelNumber' => 'string|max:255',
                 'newPrice' => 'integer',
                 'oldPrice' => 'integer',
                 'photos'=> 'array',

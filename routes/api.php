@@ -22,6 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(productController::class)->prefix('products')->group(function () {
     Route::get('showDeleted', 'showDel');
     Route::post('restore', 'restore');
+    Route::post('update', 'update');
+    Route::get('search', 'searchByModelNumber');
     Route::get('showWithLang/{product}', 'showWithLang');
 
 });

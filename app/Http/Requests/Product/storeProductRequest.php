@@ -29,7 +29,7 @@ class storeProductRequest extends FormRequest
                 'description.gr' => 'required|string',
                 'type.en' => 'required|string',
                 'type.gr' => 'required|string',
-                'modelNumber' => 'required|string|max:255',
+//                'modelNumber' => 'required|string|max:255',
                 'newPrice' => 'required|integer',
                 'oldPrice' => 'nullable|integer',
                 'photos'=> 'required|array',

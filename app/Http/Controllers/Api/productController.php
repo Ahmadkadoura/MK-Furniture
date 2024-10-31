@@ -63,14 +63,12 @@ class productController extends Controller
         if ($request->has('photos')) {
             foreach ($request->file('photos') as $key => $photo) {
                 $file = $photo['image'];
-                $modelNumber = $product->modelNumber;
-                $fileName = 'photos/' . $modelNumber.'_'. $file->hashName();
+                $product=$request->name['en'];
+                $fileName = 'photos/' . $product.'_'. $file->hashName();
                 $productData['photos'][$key]['image'] = $this->createFile($file, Product::getDisk(), filename: $fileName);
             }
         }
-
         $updatedProduct = $this->productRepository->update($product ,$productData);
-
         return $this->showOne($updatedProduct['Product'], ProductResource::class, $updatedProduct['message']);
     }
 
@@ -91,6 +89,19 @@ class productController extends Controller
 
         $data = $this->productRepository->restore($request);
         return [__($data['message']),$data['code']];
+    }
+    public function searchByModelNumber(Request $request)
+    {
+        $modelNumber = $request->input('modelNumber');
+
+        // Search for products by model number
+        $products = Product::where('modelNumber', $modelNumber )->first();
+        if (!$products){
+            return response()->json(['message' => 'Product not found'], 404);
+        }else{
+            return $this->showOne($products, ProductResource::class,);
+        }
+
     }
 
 }
