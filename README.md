@@ -1,10 +1,10 @@
-# M.K.Furniture - Furniture Showroom Management System
+# MK-Furniture - Furniture Showroom Management System
 
 ![Laravel Logo](logo.png)
 
 [![Build Status](https://img.shields.io/travis/gothinkster/laravel-realworld-example-app/master.svg)](https://travis-ci.org/gothinkster/laravel-realworld-example-app) [![GitHub stars](https://img.shields.io/github/stars/Ahmadkadoura/MK-Furniture.svg)](https://github.com/Ahmadkadoura/MK-Furniture/stargazers) [![GitHub license](https://img.shields.io/github/license/Ahmadkadoura/MK-Furniture.svg)](https://raw.githubusercontent.com/Ahmadkadoura/MK-Furniture/master/LICENSE)
 
-> **M.K.Furniture** is a web-based Furniture Showroom Management System designed to handle product operations and showcase furniture items on the homepage.
+> **MK-Furniture** is a web-based Furniture Showroom Management System designed to handle product operations and showcase furniture items on the homepage.
 
 ---
 
@@ -15,9 +15,9 @@
 - **Product Display**:  
   - Show furniture items on the homepage in an organized and visually appealing manner.  
 - **Search and Filter**:  
-  - Enable users to search for products and filter them by categories or other attributes.  
-- **Responsive Design**:  
-  - User interface optimized for desktop and mobile devices using Laravel Blade and Bootstrap.
+  - Enable users to search for products and filter them by types or other attributes.
+- **API Layer**:  
+  - Built using Repository and Trait design patterns for scalability and clean architecture
 
 ---
 
